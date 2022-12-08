@@ -1,0 +1,14 @@
+{
+  "name": "js-project_final",
+  "version": "1.0.0",
+  "description": "js practice",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Crystal",
+  "license": "ISC",
+  "devDependencies": {
+    "webpack": "^5.75.0"
+  }
+}
