@@ -3,9 +3,11 @@
 //1.1做資料相加，先小步測試是否有印在DOM上
 //1.2開renderPorductList函式，讓getProductList()帶入(由於後續也會用到字串相加並顯示在列表，故將它寫成renderProductList函式) 
 
-function init() {
-    renderProductList()
-}
+// function init() {
+//     getCartList()
+
+// }
+
 const productList = document.querySelector(".productWrap");
 let productListData = [];//變數，將資料放入
 axios.get(`https://livejs-api.hexschool.io/api/livejs/v1/customer/${api_path}/products`)
@@ -13,12 +15,12 @@ axios.get(`https://livejs-api.hexschool.io/api/livejs/v1/customer/${api_path}/pr
         //console.log(response.data.products)//開函式，要去確認結果是在在console中打getProductionList(), 確認是否有接收成功
         productListData = response.data.products;
         renderProductList(productListData);
+
     })
 function renderProductList(productListData) {
     let str = "";
-    productListData.forEach(item => {
+    productListData.forEach(function (item) {
         // console.log(item)
-
         str += `<li class="productCard">
         <h4 class="productType">新品</h4>
          <img src="${item.images}"
@@ -30,8 +32,9 @@ function renderProductList(productListData) {
          </li>`;
     })
     productList.innerHTML = str;//印出於HTML
-
+    getCartList()
 }
+
 
 
 //2.將選取選單對應呈現在HTML列表
@@ -136,8 +139,9 @@ function getCartList() {
 
             shoppingCartList.innerHTML = str;
         })
-
 }
+
+
 
 //4.做購物車單一刪除功能
 //4.1需要埋購物車id (不是產品ID唷)，找到相對應的位置<a>埋 cart-id="${item.id}" -->驗證點擊後用element查看，確認是否有把購物車id帶入
@@ -302,7 +306,9 @@ function handleInputValidate(inputElement) {
 
     // 驗證通過， error 會是 undefined
     // 驗證失敗， error 會是 error message
-    const error = validate(target, validateValue);
+    const error = validate(target, validateValue,
+        { fullMessages: false }
+    );
     console.log(error)
     const isError = !!error;//undefined->false,!error->true,!!error->false
     //驗證是if (undefined)=>是false(undefined 轉成布林是false)
