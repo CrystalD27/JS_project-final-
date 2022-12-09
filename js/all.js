@@ -3,20 +3,26 @@
 //1.1做資料相加，先小步測試是否有印在DOM上
 //1.2開renderPorductList函式，讓getProductList()帶入(由於後續也會用到字串相加並顯示在列表，故將它寫成renderProductList函式) 
 
-// function init() {
-//     getCartList()
+function init() {
+    getProductList()
+    getCartList()
 
-// }
+}
+init()
 
 const productList = document.querySelector(".productWrap");
 let productListData = [];//變數，將資料放入
-axios.get(`https://livejs-api.hexschool.io/api/livejs/v1/customer/${api_path}/products`)
-    .then((response) => {
-        //console.log(response.data.products)//開函式，要去確認結果是在在console中打getProductionList(), 確認是否有接收成功
-        productListData = response.data.products;
-        renderProductList(productListData);
+function getProductList() {
 
-    })
+    axios.get(`https://livejs-api.hexschool.io/api/livejs/v1/customer/${api_path}/products`)
+        .then((response) => {
+            //console.log(response.data.products)//開函式，要去確認結果是在在console中打getProductionList(), 確認是否有接收成功
+            productListData = response.data.products;
+            console.log(productListData)
+            renderProductList(productListData);
+
+        })
+}
 function renderProductList(productListData) {
     let str = "";
     productListData.forEach(function (item) {
@@ -32,7 +38,7 @@ function renderProductList(productListData) {
          </li>`;
     })
     productList.innerHTML = str;//印出於HTML
-    getCartList()
+
 }
 
 
@@ -58,7 +64,7 @@ function getSelectData(selectList) {
         renderProductList(productListData)
     } else {
         catchData = productListData.filter((item) => selectList === item.category)
-        //console.log(catchData)
+        console.log(catchData)
         renderProductList(catchData);
     }
 }
@@ -193,7 +199,7 @@ deleteAllBtn.addEventListener("click", (e) => {
 
 const submitOrder = document.querySelector(".orderInfo-btn")
 const orderForm = document.querySelector(".orderInfo-form")
-const inputs = document.querySelectorAll("input[name],select[name]")
+const inputs = document.querySelectorAll("input[name]")
 
 submitOrder.addEventListener("click", (e) => {
     e.preventDefault();
